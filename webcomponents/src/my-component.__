@@ -1,0 +1,88 @@
+class MyComponent extends HTMLElement {
+
+	// ************************** Shadow DOM
+	static layout = `
+		<style>
+			p {
+				color: blue;
+			}
+		</style>
+		<p>My component!</p>
+	`;
+
+	// ************************ Attributes
+	static get observedAttributes() {
+		return ['name'];
+	}
+	
+    constructor() {
+		super();
+		console.log(`${this.tagName} created!`);
+		this.__params = [];
+    }
+    
+	connectedCallback() {
+
+		// ********************** lifecycle
+		// console.log(this);
+		// if (this.isConnected) {
+		// 	this.timerId = setInterval(function () {
+		// 		this.innerHTML = new Date().toString();
+		// 	}.bind(this), 1000);
+		// }
+
+		this.render();
+
+		// ************************** Shadow DOM
+		this.innerHTML = MyComponent.layout;
+	}
+
+    attributeChangedCallback(name, oldVal, newVal) {
+		console.log(name+' changed');
+		console.log(oldVal);
+		console.log(newVal);
+
+		// ************************ Attributes
+		if(name==="name"){
+			this.helloname = newVal;
+			this.render();
+		}
+    }
+
+	disconnectedCallback() {
+		//usuń komponent z drzewa dom i sprawdź czy callback został wywołany
+		console.log(`${this.tagName} disconnected`);
+		//zastanów się, do czego można wykorzystać ten callback?
+		//usuń handlera ustawionego przez setIntervl
+		clearInterval(this.timerId);
+	}
+
+	render() {
+
+		// ************************ Properties
+		// this.innerHTML = JSON.stringify(this.__params);
+		// this.innerHTML = `<ul>${this.__params.map(e=>`<li>${e}</li>`).join("")}</ul>`;
+
+		// ************************ Attributes
+		// this.innerHTML = `hello: ${this.helloname}`
+
+	}
+
+	// ************************ Properties
+	get params(){
+		return this.__params;
+	}
+
+	set params(paramsList){
+		this.__params = paramsList;
+		this.render();
+	}
+
+	// set name(val) {
+	// 	this.setAttribute('name', val);
+	// 	this.render();
+	// }
+
+}
+
+customElements.define('my-component', MyComponent); console.log('my-component registered!');

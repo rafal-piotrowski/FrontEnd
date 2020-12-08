@@ -1,0 +1,50 @@
+const template = document.createElement('template');
+template.innerHTML = `
+	<style>
+		.container {
+			display: inline-block;
+		}
+		.text-editor {
+			background-color: bisque;
+		}
+		.counter {
+			text-align: right;
+		}
+	</style>
+	<div>
+		<div class="container">
+			<p>tutaj jest miejsce na konent</p>
+			<slot></slot>
+			<textarea class="text-editor" rows="10" cols="40"></textarea>
+			<div class="counter"></div>
+			<slot name="stopka"></slot>
+		</div>
+	</div>
+	`;
+
+class MyThirdComponent extends HTMLElement {
+	constructor() {
+		super();
+		this.onTextChanged = this.onTextChanged.bind(this);
+		this.attachShadow({mode:"open"});
+		this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+		this.textArea = this.shadowRoot.querySelector('textarea');
+		this.counterField = this.shadowRoot.querySelector('.counter');
+	}
+
+	connectedCallback(){
+		this.textArea.addEventListener('input', this.onTextChanged);
+	}
+
+	disconnectedCallback() {
+		this.textArea.removeEventListener('input', this.onTextChanged);
+	}
+
+	onTextChanged = () => {
+		this.counterField.innerHTML = "Counter: " + this.textArea.textLength;
+	}
+
+}
+
+customElements.define('my-third-component', MyThirdComponent);

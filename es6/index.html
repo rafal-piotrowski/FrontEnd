@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Put your description here.">
+  <!-- <base href="/"> -->
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #ededed;
+    }
+    .someBlock {
+      width: 150px;
+      height: 150px;
+      display: grid;
+      background-color: green;
+      color: white;
+    }
+    .overlay {
+      display: grid;
+      padding: 50px;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      justify-items: center;
+    }
+  </style>
+  <title>ES6</title>
+  <!-- <script type="module" src="scripts.js"></script> -->
+  <script src="scripts.js"></script>
+</head>
+
+<body>
+    <h1>ES6</h1>
+    <button onclick="myPromise()">Kurs dolara</button>
+    <div class="overlay">
+      <div id="insideContent" class="someBlock"></div>
+      <div id="otherContent" class="someBlock"></div>
+      <div id="malContent" class="someBlock"></div>
+      <div id="commonContent" class="someBlock"></div>
+    </div>
+</body>
+
+</html>

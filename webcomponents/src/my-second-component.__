@@ -1,0 +1,40 @@
+
+mySecondComponent
+
+class MySecondComponent extends HTMLElement {
+	static layout = `
+		<style>
+			p {
+				color: red;
+			}
+		</style>
+		<p>My component!</p>
+	`;
+
+    constructor() {
+		super();
+        console.log(`${this.tagName} created!`);
+        // utworzenie shadow DOM
+		// this.attachShadow({mode: "open"});
+    }
+    
+	connectedCallback() {
+		// this.render();
+		this.innerHTML = MySecondComponent.layout;
+        // this.shadowRoot.innerHTML = MySecondComponent.layout;
+	}
+
+    attributeChangedCallback(name, oldVal, newVal) {
+    }
+
+	disconnectedCallback() {
+		//usuń komponent z drzewa dom i sprawdź czy callback został wywołany
+		console.log(`${this.tagName} disconnected`);
+	}
+
+	render() {
+	}
+
+}
+
+customElements.define('my-second-component', MySecondComponent); console.log('my-second-component registered!');
